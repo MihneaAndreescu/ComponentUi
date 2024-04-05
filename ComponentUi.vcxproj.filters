@@ -28,9 +28,6 @@
     <Filter Include="Source Files\Component\GraphicsComponent">
       <UniqueIdentifier>{61807dcb-3483-4622-8284-77cc55b91248}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Object\AABBObject">
-      <UniqueIdentifier>{df627335-b93e-4eb8-8240-85811ae606a4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Component\AABBObjectGraphicsComponent">
       <UniqueIdentifier>{8e77fe96-478e-4899-bc44-8c3fe7b5e1a8}</UniqueIdentifier>
     </Filter>
@@ -63,9 +60,6 @@
     <ClCompile Include="GraphicsComponent.cpp">
       <Filter>Source Files\Component\GraphicsComponent</Filter>
     </ClCompile>
-    <ClCompile Include="AABBObject.cpp">
-      <Filter>Source Files\Object\AABBObject</Filter>
-    </ClCompile>
     <ClCompile Include="AABBObjectGraphicsComponent.cpp">
       <Filter>Source Files\Component\AABBObjectGraphicsComponent</Filter>
     </ClCompile>
@@ -97,9 +91,6 @@
     </ClInclude>
     <ClInclude Include="GraphicsComponent.h">
       <Filter>Source Files\Component\GraphicsComponent</Filter>
-    </ClInclude>
-    <ClInclude Include="AABBObject.h">
-      <Filter>Source Files\Object\AABBObject</Filter>
     </ClInclude>
     <ClInclude Include="AABBObjectGraphicsComponent.h">
       <Filter>Source Files\Component\AABBObjectGraphicsComponent</Filter>

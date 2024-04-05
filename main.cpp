@@ -1,3 +1,5 @@
+#include "Object.h"
+
 #include "AABBButtonObject.h"
 #include <SFML/Graphics.hpp>
 #include <iostream>

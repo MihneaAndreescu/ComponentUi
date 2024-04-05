@@ -19,7 +19,6 @@ public:
 	template<std::derived_from<Component> DerivedType> std::shared_ptr<DerivedType> getTheUniqueComponentOfType() const
 	{
 		std::shared_ptr<DerivedType> componentOfType;
-		assert(!componentOfType); // delete later, useless
 		for (const auto& component : m_components)
 		{
 			if (std::shared_ptr<DerivedType> castedComponent = std::dynamic_pointer_cast<DerivedType> (component))
@@ -45,3 +44,5 @@ public:
 	}
 	virtual void update(ObjectUpdateInfo updateInfo);
 };
+
+

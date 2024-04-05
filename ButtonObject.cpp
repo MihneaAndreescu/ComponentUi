@@ -1,4 +1,3 @@
-#include <cassert>
 #include "ButtonObject.h"
 #include "ObjectUpdateInfo.h"
 #include "ShapeComponent.h"

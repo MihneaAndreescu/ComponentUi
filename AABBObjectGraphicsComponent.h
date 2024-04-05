@@ -1,7 +1,6 @@
 #pragma once
 #include "GraphicsComponent.h"
 #include <memory>
-#include "AABBObject.h"
 
 class AABBObjectGraphicsComponent : public GraphicsComponent
 {

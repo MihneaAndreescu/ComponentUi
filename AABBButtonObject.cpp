@@ -56,7 +56,6 @@ const sf::Vector2f& AABBButtonObject::getCenter() const
 	return shapeComponent->getCenter();
 }
 
-
 void AABBButtonObject::update(ObjectUpdateInfo info) 
 {
 	ButtonObject::update(info);

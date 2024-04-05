@@ -155,7 +155,6 @@
     <ClCompile Include="GraphicsComponent.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Object.cpp" />
-    <ClCompile Include="AABBObject.cpp" />
     <ClCompile Include="AABBObjectGraphicsComponent.cpp" />
     <ClCompile Include="ObjectUpdateInfo.cpp" />
     <ClCompile Include="ShapeComponent.cpp" />
@@ -168,7 +167,6 @@
     <ClInclude Include="Component.h" />
     <ClInclude Include="GraphicsComponent.h" />
     <ClInclude Include="Object.h" />
-    <ClInclude Include="AABBObject.h" />
     <ClInclude Include="AABBObjectGraphicsComponent.h" />
     <ClInclude Include="ObjectUpdateInfo.h" />
     <ClInclude Include="ShapeComponent.h" />
