@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Component">
+      <UniqueIdentifier>{28434299-62b6-47e1-87b6-61dbb2943a1d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Component\Component">
+      <UniqueIdentifier>{c965073a-7578-49a1-8967-9917e9eadfb3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Object">
+      <UniqueIdentifier>{f8ccb283-2f96-4fd5-84f0-d82d0f420366}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Object\Object">
+      <UniqueIdentifier>{8dc7c2ec-23f9-4844-9711-7e004e7ac953}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Component\GraphicsComponent">
+      <UniqueIdentifier>{61807dcb-3483-4622-8284-77cc55b91248}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Object\AABBObject">
+      <UniqueIdentifier>{df627335-b93e-4eb8-8240-85811ae606a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Component\AABBObjectGraphicsComponent">
+      <UniqueIdentifier>{8e77fe96-478e-4899-bc44-8c3fe7b5e1a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ObjectUpdateInfo">
+      <UniqueIdentifier>{7eeaa14a-bcad-427e-9036-6d3beb6f94d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Object\AABBButtonObject">
+      <UniqueIdentifier>{b0a75e0d-917a-49b9-a199-776c774c6219}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Component\AABBButtonObjectGraphicsComponent">
+      <UniqueIdentifier>{109500d3-72a2-44ef-a3f9-7a2ffcb4face}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Object\ButtonObject">
+      <UniqueIdentifier>{1495dd63-9bb6-4b66-a7a0-3644ac775559}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Component\ShapeComponent">
+      <UniqueIdentifier>{27bcbe9a-325d-4373-8d20-f0ae26968cd9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Component\AABBShapeComponent">
+      <UniqueIdentifier>{d7abbf9c-08b2-45cb-bd5d-c89e621a84e2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>Source Files\Object\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicsComponent.cpp">
+      <Filter>Source Files\Component\GraphicsComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="AABBObject.cpp">
+      <Filter>Source Files\Object\AABBObject</Filter>
+    </ClCompile>
+    <ClCompile Include="AABBObjectGraphicsComponent.cpp">
+      <Filter>Source Files\Component\AABBObjectGraphicsComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectUpdateInfo.cpp">
+      <Filter>Source Files\ObjectUpdateInfo</Filter>
+    </ClCompile>
+    <ClCompile Include="AABBButtonObject.cpp">
+      <Filter>Source Files\Object\AABBButtonObject</Filter>
+    </ClCompile>
+    <ClCompile Include="AABBButtonObjectGraphicsComponent.cpp">
+      <Filter>Source Files\Component\AABBButtonObjectGraphicsComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="ButtonObject.cpp">
+      <Filter>Source Files\Object\ButtonObject</Filter>
+    </ClCompile>
+    <ClCompile Include="ShapeComponent.cpp">
+      <Filter>Source Files\Component\ShapeComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="AABBShapeComponent.cpp">
+      <Filter>Source Files\Component\AABBShapeComponent</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Component.h">
+      <Filter>Source Files\Component\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>Source Files\Object\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsComponent.h">
+      <Filter>Source Files\Component\GraphicsComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="AABBObject.h">
+      <Filter>Source Files\Object\AABBObject</Filter>
+    </ClInclude>
+    <ClInclude Include="AABBObjectGraphicsComponent.h">
+      <Filter>Source Files\Component\AABBObjectGraphicsComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectUpdateInfo.h">
+      <Filter>Source Files\ObjectUpdateInfo</Filter>
+    </ClInclude>
+    <ClInclude Include="AABBButtonObject.h">
+      <Filter>Source Files\Object\AABBButtonObject</Filter>
+    </ClInclude>
+    <ClInclude Include="AABBButtonObjectGraphicsComponent.h">
+      <Filter>Source Files\Component\AABBButtonObjectGraphicsComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="ButtonObject.h">
+      <Filter>Source Files\Object\ButtonObject</Filter>
+    </ClInclude>
+    <ClInclude Include="ShapeComponent.h">
+      <Filter>Source Files\Component\ShapeComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="AABBShapeComponent.h">
+      <Filter>Source Files\Component\AABBShapeComponent</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shader.frag">
+      <Filter>Source Files</Filter>
+    </None>
+  </ItemGroup>
+</Project>
