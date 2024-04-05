@@ -28,7 +28,6 @@ sf::Vector2f AABBButtonObjectGraphicsComponent::getCenter() const
 	return shapeComponent->getCenter();
 }
 
-
 AABBButtonObjectGraphicsComponent::AABBButtonObjectGraphicsComponent(std::shared_ptr<AABBButtonObject> object) :
 	m_object(object)
 {
@@ -53,7 +52,6 @@ void AABBButtonObjectGraphicsComponent::onActive()
 {
 	m_shader.setUniform("inputColor", getVec4(sf::Color::Red));
 }
-
 
 void AABBButtonObjectGraphicsComponent::draw(sf::RenderTarget& renderTarget, sf::RenderStates renderStates) const
 {
