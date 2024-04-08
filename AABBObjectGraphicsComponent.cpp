@@ -1,7 +1,15 @@
 #include "AABBObjectGraphicsComponent.h"
+#include "AABBShapeComponent.h"
+#include "Object.h"
 
-AABBObjectGraphicsComponent::AABBObjectGraphicsComponent()
+AABBObjectGraphicsComponent::AABBObjectGraphicsComponent(std::shared_ptr<Object> object) :
+	m_object(object)
 {
+}
+
+std::shared_ptr<Object> AABBObjectGraphicsComponent::getObject() const 
+{
+	return m_object;
 }
 
 void AABBObjectGraphicsComponent::draw(sf::RenderTarget& renderTarget, sf::RenderStates renderStates) const
@@ -11,6 +19,18 @@ void AABBObjectGraphicsComponent::draw(sf::RenderTarget& renderTarget, sf::Rende
 		renderStates.texture = m_texture.get();
 	}
 	renderTarget.draw(m_vertexArray, renderStates);
+}
+
+sf::Vector2f AABBObjectGraphicsComponent::getSize() const
+{
+	const auto shapeComponent = m_object->getTheUniqueComponentOfType<AABBShapeComponent>();
+	return shapeComponent->getSize();
+}
+
+sf::Vector2f AABBObjectGraphicsComponent::getCenter() const
+{
+	const auto shapeComponent = m_object->getTheUniqueComponentOfType<AABBShapeComponent>();
+	return shapeComponent->getCenter();
 }
 
 void AABBObjectGraphicsComponent::beforeRender()

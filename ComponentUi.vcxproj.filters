@@ -49,6 +49,9 @@
     <Filter Include="Source Files\Component\AABBShapeComponent">
       <UniqueIdentifier>{d7abbf9c-08b2-45cb-bd5d-c89e621a84e2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Object\PanelObject">
+      <UniqueIdentifier>{5980c376-8f5c-46a2-bb59-0b11a25216c3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -75,11 +78,11 @@
     <ClCompile Include="ButtonObject.cpp">
       <Filter>Source Files\Object\ButtonObject</Filter>
     </ClCompile>
-    <ClCompile Include="ShapeComponent.cpp">
-      <Filter>Source Files\Component\ShapeComponent</Filter>
-    </ClCompile>
     <ClCompile Include="AABBShapeComponent.cpp">
       <Filter>Source Files\Component\AABBShapeComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="AABBPanelObject.cpp">
+      <Filter>Source Files\Object\PanelObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -112,6 +115,9 @@
     </ClInclude>
     <ClInclude Include="AABBShapeComponent.h">
       <Filter>Source Files\Component\AABBShapeComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="AABBPanelObject.h">
+      <Filter>Source Files\Object\PanelObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,3 +1,5 @@
+#include <algorithm>
+
 #include "Object.h"
 
 #include "AABBButtonObject.h"
@@ -7,6 +9,7 @@
 #include "AABBButtonObject.h"
 #include "ObjectUpdateInfo.h"
 #include "GraphicsComponent.h"
+#include "AABBPanelObject.h"
 
 int main()
 {
@@ -22,13 +25,32 @@ int main()
     std::vector<std::shared_ptr<Object>> objects;
 
     {
+        std::shared_ptr<AABBPanelObject> panel = std::make_shared<AABBPanelObject>();
+        panel->setCenter(sf::Vector2f(0.5, 0.5));
+        panel->setSize(sf::Vector2f(0.4, 0.4));
+        objects.push_back(panel);
+
+        auto graphicsComponents = panel->getComponentsOfType<GraphicsComponent>();
+        for (auto& graphicsComponent : graphicsComponents)
+        {
+            graphicsComponent->setZIndex(2);
+        }
+    }
+
+    {
         std::shared_ptr<AABBButtonObject> button = std::make_shared<AABBButtonObject>();
         button->setTexture(std::make_shared<sf::Texture>(mountainTexture));
         button->setCenter(sf::Vector2f(0.5, 0.5));
         button->setSize(sf::Vector2f(0.2, 0.2));
         objects.push_back(button);
-
+        
+        auto graphicsComponents = button->getComponentsOfType<GraphicsComponent>();
+        for (auto& graphicsComponent : graphicsComponents)
+        {
+            graphicsComponent->setZIndex(+1);
+        }
     }
+
 
     sf::Clock frameClock;
 
@@ -67,6 +89,7 @@ int main()
                 graphicsComponents.push_back(graphicsComponent);
             }
         }
+        std::sort(graphicsComponents.begin(), graphicsComponents.end(), [&](const std::shared_ptr<GraphicsComponent>& a, const std::shared_ptr<GraphicsComponent>& b) { return a->getZIndex() < b->getZIndex();});
         for (auto& graphicsComponent : graphicsComponents)
         {
             graphicsComponent->beforeRender();

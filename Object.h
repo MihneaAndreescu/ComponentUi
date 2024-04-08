@@ -7,6 +7,8 @@
 class ObjectUpdateInfo;
 class Component;
 
+#include <iostream>
+
 class Object
 {
 private:

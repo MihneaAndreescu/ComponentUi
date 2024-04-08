@@ -16,20 +16,9 @@ std::shared_ptr<Object> AABBButtonObjectGraphicsComponent::getObject() const
 	return m_object;
 }
 
-sf::Vector2f AABBButtonObjectGraphicsComponent::getSize() const
-{
-	const auto shapeComponent = m_object->getTheUniqueComponentOfType<AABBShapeComponent>();
-	return shapeComponent->getSize();
-}
-
-sf::Vector2f AABBButtonObjectGraphicsComponent::getCenter() const
-{
-	const auto shapeComponent = m_object->getTheUniqueComponentOfType<AABBShapeComponent>();
-	return shapeComponent->getCenter();
-}
-
 AABBButtonObjectGraphicsComponent::AABBButtonObjectGraphicsComponent(std::shared_ptr<AABBButtonObject> object) :
-	m_object(object)
+	m_object(object),
+	AABBObjectGraphicsComponent(object)
 {
 	if (!m_shader.loadFromFile("shader.frag", sf::Shader::Fragment))
 	{
