@@ -1,6 +1,7 @@
 #include "Object.h"
 #include "Component.h"
 #include "ObjectUpdateInfo.h"
+#include "NodeComponent.h"	
 
 void Object::addComponent(std::shared_ptr<Component> component)
 {
@@ -23,11 +24,50 @@ bool Object::eraseComponent(std::shared_ptr<Component> component)
 	return found;
 }
 
-void Object::update(ObjectUpdateInfo updateInfo)
+#include <iostream>
+
+void Object::updateVirtual(ObjectUpdateInfo updateInfo)
 {
+	std::cout << "from Object\n";
 }
 
 void Object::clearComponents()
 {
 	m_components.clear();
+}
+
+std::shared_ptr<NodeComponent> Object::getNodeComponent() 
+{
+	if (!hasComponentsOfType<NodeComponent>())
+	{
+		addComponent(std::make_shared<NodeComponent>(std::make_shared<Object>(*this)));
+	}
+	return getTheUniqueComponentOfType<NodeComponent>();
+}
+
+void Object::addChild(std::shared_ptr<Object> object)
+{
+	getNodeComponent()->addComponent(object->getNodeComponent());
+}
+
+bool Object::eraseChild(std::shared_ptr<Object> object)
+{
+	return getNodeComponent()->eraseComponent(object->getNodeComponent());
+}
+
+void Object::clearChildren()
+{
+	getNodeComponent()->clearComponents();
+}
+
+#include <iostream>
+
+void Object::update(ObjectUpdateInfo updateInfo)
+{
+	updateVirtual(updateInfo);
+	for (auto& component : getNodeComponent()->getComponents())
+	{
+		std::shared_ptr<Object> obj = component->getObject();
+		obj->update(updateInfo);
+	}
 }

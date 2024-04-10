@@ -7,7 +7,7 @@ AABBObjectGraphicsComponent::AABBObjectGraphicsComponent(std::shared_ptr<Object>
 {
 }
 
-std::shared_ptr<Object> AABBObjectGraphicsComponent::getObject() const 
+std::shared_ptr<Object> AABBObjectGraphicsComponent::getObject() const
 {
 	return m_object;
 }

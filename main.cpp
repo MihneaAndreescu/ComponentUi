@@ -25,30 +25,45 @@ int main()
     std::vector<std::shared_ptr<Object>> objects;
 
     {
-        std::shared_ptr<AABBPanelObject> panel = std::make_shared<AABBPanelObject>();
-        panel->setCenter(sf::Vector2f(0.5, 0.5));
-        panel->setSize(sf::Vector2f(0.4, 0.4));
-        objects.push_back(panel);
-
-        auto graphicsComponents = panel->getComponentsOfType<GraphicsComponent>();
-        for (auto& graphicsComponent : graphicsComponents)
-        {
-            graphicsComponent->setZIndex(2);
-        }
-    }
-
-    {
         std::shared_ptr<AABBButtonObject> button = std::make_shared<AABBButtonObject>();
         button->setTexture(std::make_shared<sf::Texture>(mountainTexture));
         button->setCenter(sf::Vector2f(0.5, 0.5));
         button->setSize(sf::Vector2f(0.2, 0.2));
-        objects.push_back(button);
-        
-        auto graphicsComponents = button->getComponentsOfType<GraphicsComponent>();
-        for (auto& graphicsComponent : graphicsComponents)
+    
+        //objects.push_back(button);
+
         {
-            graphicsComponent->setZIndex(+1);
+            auto graphicsComponents = button->getComponentsOfType<GraphicsComponent>();
+            for (auto& graphicsComponent : graphicsComponents)
+            {
+                graphicsComponent->setZIndex(+1);
+            }
         }
+   
+        std::shared_ptr<AABBPanelObject> panel = std::make_shared<AABBPanelObject>();
+        panel->setCenter(sf::Vector2f(0.5, 0.5));
+        panel->setSize(sf::Vector2f(0.4, 0.4));
+        panel->addChild(button);
+
+        {
+            auto graphicsComponents = panel->getComponentsOfType<GraphicsComponent>();
+            for (auto& graphicsComponent : graphicsComponents)
+            {
+                graphicsComponent->setZIndex(-1);
+            }
+        }
+
+        ObjectUpdateInfo info;
+        //button->updateVirtual(info);
+        std::shared_ptr<Object> sh = button;
+        sh->update(info);
+        std::cout << "----------------\n";
+        panel->update(info);
+        std::cout << "----------------\n";
+        //panel->updateVirtual(info);
+        exit(0);
+
+        objects.push_back(panel);
     }
 
 
@@ -77,9 +92,10 @@ int main()
 
         for (auto& object : objects)
         {
-            object->update(updateInfo);
+            std::cout << "start\n";
+            object->updateVirtual(updateInfo);
         }
-
+        exit(0);
         window.clear();
         std::vector<std::shared_ptr<GraphicsComponent>> graphicsComponents;
         for (const auto& object : objects)
@@ -100,9 +116,11 @@ int main()
         }
         window.display();
     }
-
     return 0;
 }
+// sa fac json de la 0
+// rename update
+// node component -> copil doar node component
 // node component -> (reper-ul sau transformul in general) pt mn: unde e cineva in raport cu parintele lui. transform: aabb, pt fiecare margine
 // unde se afla fata de aabb-ul parintelui (procentual, duh)
 // panel, un buton lipit de marginea din stanga la mijloc, plus altul, cu w&h relativ tot

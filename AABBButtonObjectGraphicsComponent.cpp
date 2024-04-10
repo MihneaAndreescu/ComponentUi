@@ -11,7 +11,7 @@ sf::Glsl::Vec4 getVec4(sf::Color color)
 	return sf::Glsl::Vec4(red, green, blue, alpha);
 }
 
-std::shared_ptr<Object> AABBButtonObjectGraphicsComponent::getObject() const 
+std::shared_ptr<Object> AABBButtonObjectGraphicsComponent::getObject() const
 {
 	return m_object;
 }

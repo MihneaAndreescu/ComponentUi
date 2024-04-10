@@ -15,8 +15,8 @@ protected:
 	sf::Vector2f getCenter() const;
 
 	std::shared_ptr<Object> getObject() const override;
-public:
 
+public:
 	AABBObjectGraphicsComponent(std::shared_ptr<Object> object);
 	void draw(sf::RenderTarget& renderTarget, sf::RenderStates renderStates) const override;
 	void beforeRender() override;

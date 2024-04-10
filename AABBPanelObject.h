@@ -9,7 +9,7 @@ class AABBPanelObject : public Object
 {
 public:
 	AABBPanelObject();
-	void update(ObjectUpdateInfo updateInfo) override;
+	void updateVirtual(ObjectUpdateInfo updateInfo) override;
 
 	void setSize(sf::Vector2f newSize);
 	void setCenter(sf::Vector2f newCenter);

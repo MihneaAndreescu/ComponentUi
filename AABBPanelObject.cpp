@@ -12,9 +12,10 @@ AABBPanelObject::AABBPanelObject()
 	addComponent(graphicsComponent);
 }
 
-void AABBPanelObject::update(ObjectUpdateInfo info)
+
+void AABBPanelObject::updateVirtual(ObjectUpdateInfo info)
 {
-	Object::update(info);
+	Object::updateVirtual(info);
 }
 
 void AABBPanelObject::setSize(sf::Vector2f newSize)

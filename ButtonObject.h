@@ -12,7 +12,7 @@ private:
 	ButtonState m_buttonState;
 public:
 	ButtonObject();
-	void update(ObjectUpdateInfo updateInfo) override;
+	void updateVirtual(ObjectUpdateInfo updateInfo) override;
 	virtual void onIdle();
 	virtual void onHover();
 	virtual void onActive();

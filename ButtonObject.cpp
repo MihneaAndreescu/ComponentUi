@@ -7,9 +7,12 @@ ButtonObject::ButtonObject() :
 {
 }
 
-void ButtonObject::update(ObjectUpdateInfo updateInfo)
+#include <iostream>
+
+void ButtonObject::updateVirtual(ObjectUpdateInfo updateInfo)
 {
-	Object::update(updateInfo);
+	std::cout << "din buton\n";
+	Object::updateVirtual(updateInfo);
 	m_buttonState = ButtonState::Idle;
 	bool inside = false;
 	for (const auto& component : getComponentsOfType<ShapeComponent>())
