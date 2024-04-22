@@ -22,28 +22,14 @@ int main()
 
     sf::Texture mountainTexture;
     mountainTexture.loadFromFile("mountain.jpg");
-
-    //std::vector<std::shared_ptr<int>> v;
-    //{
-    //    std::shared_ptr<int> ptr = std::make_shared<int>(4);
-    //    v.push_back(ptr);
-    //    std::cout << " = " << v[0] << " = " << *v[0] << "\n";
-    //}
-    //std::cout << " = " << v[0] << " = " << *v[0] << "\n";
-    //exit(0);
-
     std::vector<std::shared_ptr<Object>> objects;
 
     {
         std::shared_ptr<AABBPanelObject> panel = std::make_shared<AABBPanelObject>();
         std::shared_ptr<AABBButtonObject> button = std::make_shared<AABBButtonObject>();
-    
         button->setTexture(std::make_shared<sf::Texture>(mountainTexture));
         button->setCenter(sf::Vector2f(0.5, 0.5));
         button->setSize(sf::Vector2f(0.2, 0.2));
-
-        //objects.push_back(button);
-
         {
             auto graphicsComponents = button->getComponentsOfType<GraphicsComponent>();
             for (auto& graphicsComponent : graphicsComponents)
@@ -51,34 +37,17 @@ int main()
                 graphicsComponent->setZIndex(+1);
             }
         }
-
         panel->setCenter(sf::Vector2f(0.5, 0.5));
         panel->setSize(sf::Vector2f(0.4, 0.4));
         panel->addChild(std::shared_ptr<Object>(button));
-        
-
         {
             auto graphicsComponents = panel->getComponentsOfType<GraphicsComponent>();
             for (auto& graphicsComponent : graphicsComponents)
             {
-                graphicsComponent->setZIndex(-1);
+                graphicsComponent->setZIndex(3);
             }
         }
-
         objects.push_back(std::shared_ptr<Object>(panel));
-
-        //ObjectUpdateInfo info;
-        //button->updateVirtual(info);
-        //std::shared_ptr<Object> sh = button;
-        //sh->update(info);
-        //std::cout << "----------------\n";
-        //panel->update(info);
-        //std::cout << "----------------\n";
-        //panel->updateVirtual(info);
-        //exit(0);
-
-        
-        
     }
 
     sf::Clock frameClock;
@@ -103,7 +72,6 @@ int main()
         ObjectUpdateInfo updateInfo;
         updateInfo.dt = dt;
         updateInfo.mousePosition = window.mapPixelToCoords(sf::Mouse::getPosition(window), window.getView());
-
         for (auto& object : objects)
         {
             object->update(updateInfo);
@@ -118,6 +86,7 @@ int main()
             }
         }
         std::sort(graphicsComponents.begin(), graphicsComponents.end(), [&](const std::shared_ptr<GraphicsComponent>& a, const std::shared_ptr<GraphicsComponent>& b) { return a->getZIndex() < b->getZIndex();});
+        std::cout << " = " << (int)graphicsComponents.size() << "\n";
         for (auto& graphicsComponent : graphicsComponents)
         {
             graphicsComponent->beforeRender();

@@ -12,7 +12,6 @@ AABBPanelObject::AABBPanelObject()
 	addComponent(graphicsComponent);
 }
 
-
 void AABBPanelObject::updateVirtual(ObjectUpdateInfo info)
 {
 	Object::updateVirtual(info);

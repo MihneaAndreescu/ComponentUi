@@ -56,11 +56,8 @@ const sf::Vector2f& AABBButtonObject::getCenter() const
 	return shapeComponent->getCenter();
 }
 
-#include <iostream>
-
 void AABBButtonObject::updateVirtual(ObjectUpdateInfo info) 
 {
-	std::cout << "aabb button object\n";
 	ButtonObject::updateVirtual(info);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 	{

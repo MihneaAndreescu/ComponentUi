@@ -7,11 +7,8 @@ ButtonObject::ButtonObject() :
 {
 }
 
-#include <iostream>
-
 void ButtonObject::updateVirtual(ObjectUpdateInfo updateInfo)
 {
-	std::cout << "din buton\n";
 	Object::updateVirtual(updateInfo);
 	m_buttonState = ButtonState::Idle;
 	bool inside = false;

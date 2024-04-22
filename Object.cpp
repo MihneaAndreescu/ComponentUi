@@ -24,11 +24,8 @@ bool Object::eraseComponent(std::shared_ptr<Component> component)
 	return found;
 }
 
-#include <iostream>
-
 void Object::updateVirtual(ObjectUpdateInfo updateInfo)
 {
-	std::cout << "from Object\n";
 }
 
 void Object::clearComponents()
@@ -65,16 +62,12 @@ std::shared_ptr<Object> Object::getSharedThis()
 	return shared_from_this();
 }
 
-#include <iostream>
-
 void Object::update(ObjectUpdateInfo updateInfo)
 {
-	std::cout << "this = " << this << "\n";
 	updateVirtual(updateInfo);
 	for (auto& component : getNodeComponent()->getComponents())
 	{
 		std::shared_ptr<Object> obj = component->getObject();
-		std::cout << "going from " << this << " to " << obj << "\n";
 		obj->update(updateInfo);
 	}
 }
