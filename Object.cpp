@@ -40,7 +40,7 @@ std::shared_ptr<NodeComponent> Object::getNodeComponent()
 {
 	if (!hasComponentsOfType<NodeComponent>())
 	{
-		addComponent(std::make_shared<NodeComponent>(std::make_shared<Object>(*this)));
+		addComponent(std::make_shared<NodeComponent>(getSharedThis()));
 	}
 	return getTheUniqueComponentOfType<NodeComponent>();
 }
@@ -60,14 +60,21 @@ void Object::clearChildren()
 	getNodeComponent()->clearComponents();
 }
 
+std::shared_ptr<Object> Object::getSharedThis()
+{
+	return shared_from_this();
+}
+
 #include <iostream>
 
 void Object::update(ObjectUpdateInfo updateInfo)
 {
+	std::cout << "this = " << this << "\n";
 	updateVirtual(updateInfo);
 	for (auto& component : getNodeComponent()->getComponents())
 	{
 		std::shared_ptr<Object> obj = component->getObject();
+		std::cout << "going from " << this << " to " << obj << "\n";
 		obj->update(updateInfo);
 	}
 }

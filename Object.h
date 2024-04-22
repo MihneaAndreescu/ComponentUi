@@ -9,7 +9,7 @@ class ObjectUpdateInfo;
 class Component;
 class NodeComponent;
 
-class Object
+class Object : public std::enable_shared_from_this<Object>
 {
 private:
 	std::vector<std::shared_ptr<Component>> m_components;
@@ -17,6 +17,7 @@ protected:
 	void addComponent(std::shared_ptr<Component> component);
 	bool eraseComponent(std::shared_ptr<Component> component);
 	void clearComponents();
+	std::shared_ptr<Object> getSharedThis();
 public:
 	friend class Component;
 	std::shared_ptr<NodeComponent> getNodeComponent();
@@ -60,7 +61,6 @@ public:
 		}
 		return false;
 	}
-public:
 	virtual void updateVirtual(ObjectUpdateInfo updateInfo);
 	void update(ObjectUpdateInfo updateInfo);
 };

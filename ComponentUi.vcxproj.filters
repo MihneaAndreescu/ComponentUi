@@ -75,9 +75,6 @@
     <ClCompile Include="AABBButtonObject.cpp">
       <Filter>Source Files\Object\AABBButtonObject</Filter>
     </ClCompile>
-    <ClCompile Include="AABBButtonObjectGraphicsComponent.cpp">
-      <Filter>Source Files\Component\AABBButtonObjectGraphicsComponent</Filter>
-    </ClCompile>
     <ClCompile Include="ButtonObject.cpp">
       <Filter>Source Files\Object\ButtonObject</Filter>
     </ClCompile>
@@ -89,6 +86,9 @@
     </ClCompile>
     <ClCompile Include="NodeComponent.cpp">
       <Filter>Source Files\Component\NodeComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="AABBButtonObjectGraphicsComponent.cpp">
+      <Filter>Source Files\Component\AABBButtonObjectGraphicsComponent</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
