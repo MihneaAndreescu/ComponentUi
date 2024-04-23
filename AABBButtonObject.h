@@ -18,7 +18,7 @@ public:
 	const sf::Vector2f getCenter() const;
 	sf::Vector2f getLocalPosition() const override
 	{
-		return getSize();
+		return getCenter() - getSize() * 0.5f;
 	}
 	virtual sf::Vector2f getLocalSize() const override
 	{

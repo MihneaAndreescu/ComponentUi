@@ -49,43 +49,23 @@ void AABBButtonObject::setCenter(sf::Vector2f newCenter)
 
 const sf::Vector2f AABBButtonObject::getSize() const
 {
-	const auto shapeComponent = getTheUniqueComponentOfType<AABBShapeComponent>();
-	return shapeComponent->getSize();
+	return getTheUniqueComponentOfType<AABBShapeComponent>()->getSize();
 }
 
 const sf::Vector2f AABBButtonObject::getCenter() const
 {
-	const auto shapeComponent = getTheUniqueComponentOfType<AABBShapeComponent>();
-	return shapeComponent->getCenter();
+	return getTheUniqueComponentOfType<AABBShapeComponent>()->getCenter();
 }
 
-#include <iostream>
 
-void AABBButtonObject::updateVirtual(ObjectUpdateInfo info) 
+void AABBButtonObject::updateVirtual(ObjectUpdateInfo info)
 {
-	const auto shapeComponent = getTheUniqueComponentOfType<AABBShapeComponent>();
-	const auto graphicsComponent = getTheUniqueComponentOfType<AABBButtonObjectGraphicsComponent>();
-	std::cout << shapeComponent->getCenter().x << " " << graphicsComponent->getCenter().x << "\n";
-
 	ButtonObject::updateVirtual(info);
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-	{
-		const auto shapeComponent = getTheUniqueComponentOfType<AABBShapeComponent>();
-		shapeComponent->setCenter(shapeComponent->getCenter() + sf::Vector2f(0, -1) * 1.0f * info.dt);
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-	{
-		const auto shapeComponent = getTheUniqueComponentOfType<AABBShapeComponent>();
-		shapeComponent->setCenter(shapeComponent->getCenter() + sf::Vector2f(0, 1) * 1.0f * info.dt);
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-	{
-		const auto shapeComponent = getTheUniqueComponentOfType<AABBShapeComponent>();
-		shapeComponent->setCenter(shapeComponent->getCenter() + sf::Vector2f(-1, 0) * 1.0f * info.dt);
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-	{
-		const auto shapeComponent = getTheUniqueComponentOfType<AABBShapeComponent>();
-		shapeComponent->setCenter(shapeComponent->getCenter() + sf::Vector2f(+1, 0) * 1.0f * info.dt);
-	}
+	const auto shapeComponent = getTheUniqueComponentOfType<AABBShapeComponent>();
+	sf::Vector2f center = shapeComponent->getCenter();
+	center += (sf::Vector2f(0, -1) * 1.0f * info.dt) * ((sf::Keyboard::isKeyPressed(sf::Keyboard::W)) * 1.0f);
+	center += sf::Vector2f(0, 1) * 1.0f * info.dt * ((sf::Keyboard::isKeyPressed(sf::Keyboard::S)) * 1.0f);
+	center += sf::Vector2f(-1, 0) * 1.0f * info.dt * ((sf::Keyboard::isKeyPressed(sf::Keyboard::D)) * 1.0f);
+	center += sf::Vector2f(+1, 0) * 1.0f * info.dt * ((sf::Keyboard::isKeyPressed(sf::Keyboard::A)) * 1.0f);
+	shapeComponent->setCenter(center);
 }
