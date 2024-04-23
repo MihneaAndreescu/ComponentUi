@@ -1,12 +1,12 @@
 #include "NodeComponent.h"
 #include "ObjectUpdateInfo.h"
 
-void NodeComponent::addComponent(std::shared_ptr<Component> component)
+void NodeComponent::addComponent(std::shared_ptr<NodeComponent> component)
 {
 	m_components.push_back(component);
 }
 
-bool NodeComponent::eraseComponent(std::shared_ptr<Component> component)
+bool NodeComponent::eraseComponent(std::shared_ptr<NodeComponent> component)
 {
 	bool found = false;
 	for (size_t i = 0; i < m_components.size(); i++)
@@ -38,7 +38,7 @@ NodeComponent::NodeComponent(std::shared_ptr<Object> object) :
 
 }
 	
-std::vector<std::shared_ptr<Component>> NodeComponent::getComponents() const 
+std::vector<std::shared_ptr<NodeComponent>> NodeComponent::getComponents() const 
 {
 	return m_components;
 }

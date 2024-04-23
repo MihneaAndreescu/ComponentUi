@@ -6,16 +6,13 @@
 class NodeComponent : public Component 
 {
 private:
-	std::vector<std::shared_ptr<Component>> m_components;
+	std::vector<std::shared_ptr<NodeComponent>> m_components;
 	std::shared_ptr<Object> m_object;
-protected:
+public:
 	std::shared_ptr<Object> getObject() const override;
-public:
-	void addComponent(std::shared_ptr<Component> component);
-	bool eraseComponent(std::shared_ptr<Component> component);
+	void addComponent(std::shared_ptr<NodeComponent> component);
+	bool eraseComponent(std::shared_ptr<NodeComponent> component);
 	void clearComponents();
-	std::vector<std::shared_ptr<Component>> getComponents() const;
-
-public:
+	std::vector<std::shared_ptr<NodeComponent>> getComponents() const;
 	NodeComponent(std::shared_ptr<Object> object); 
 };
