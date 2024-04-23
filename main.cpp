@@ -51,7 +51,6 @@ int main()
         objects.push_back(std::shared_ptr<Object>(panel));
     }
 
-
     sf::Clock frameClock;
 
     while (window.isOpen())
