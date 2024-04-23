@@ -21,6 +21,7 @@ protected:
 public:
 	friend class Component;
 	std::shared_ptr<NodeComponent> getNodeComponent();
+	std::vector<std::shared_ptr<Object>> getChildren() const;
 	void addChild(std::shared_ptr<Object> object);
 	bool eraseChild(std::shared_ptr<Object> object);
 	void clearChildren();
@@ -48,6 +49,26 @@ public:
 				componentsOfType.push_back(castedComponent);
 			}
 		}
+		return componentsOfType;
+	}
+	template<std::derived_from<Component> DerivedType> void getComponentsOfTypeFromSubtreeRef(std::vector<std::shared_ptr<DerivedType>>& componentsOfType) const
+	{
+		for (size_t i = 0; i < m_components.size(); i++)
+		{
+			if (std::shared_ptr<DerivedType> castedComponent = std::dynamic_pointer_cast<DerivedType> (m_components[i]))
+			{
+				componentsOfType.push_back(castedComponent);
+			}
+		}
+		for (auto& child : getChildren())
+		{
+			child->getComponentsOfTypeFromSubtreeRef(componentsOfType);
+		}
+	}
+	template<std::derived_from<Component> DerivedType> std::vector<std::shared_ptr<DerivedType>> getComponentsOfTypeFromSubtree() const
+	{
+		std::vector<std::shared_ptr<DerivedType>> componentsOfType;
+		getComponentsOfTypeFromSubtreeRef(componentsOfType);
 		return componentsOfType;
 	}
 	template<std::derived_from<Component> DerivedType> bool hasComponentsOfType() const

@@ -44,7 +44,7 @@ int main()
             auto graphicsComponents = panel->getComponentsOfType<GraphicsComponent>();
             for (auto& graphicsComponent : graphicsComponents)
             {
-                graphicsComponent->setZIndex(3);
+                graphicsComponent->setZIndex(+3);
             }
         }
         objects.push_back(std::shared_ptr<Object>(panel));
@@ -80,13 +80,12 @@ int main()
         std::vector<std::shared_ptr<GraphicsComponent>> graphicsComponents;
         for (const auto& object : objects)
         {
-            for (const auto& graphicsComponent : object->getComponentsOfType<GraphicsComponent>())
+            for (const auto& graphicsComponent : object->getComponentsOfTypeFromSubtree<GraphicsComponent>())
             {
                 graphicsComponents.push_back(graphicsComponent);
             }
         }
-        std::sort(graphicsComponents.begin(), graphicsComponents.end(), [&](const std::shared_ptr<GraphicsComponent>& a, const std::shared_ptr<GraphicsComponent>& b) { return a->getZIndex() < b->getZIndex();});
-        std::cout << " = " << (int)graphicsComponents.size() << "\n";
+        std::sort(graphicsComponents.begin(), graphicsComponents.end(), [&](const std::shared_ptr<GraphicsComponent>& a, const std::shared_ptr<GraphicsComponent>& b) { return a->getZIndex() > b->getZIndex(); });
         for (auto& graphicsComponent : graphicsComponents)
         {
             graphicsComponent->beforeRender();

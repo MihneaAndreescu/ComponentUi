@@ -33,6 +33,19 @@ void Object::clearComponents()
 	m_components.clear();
 }
 
+std::vector<std::shared_ptr<Object>> Object::getChildren() const
+{
+	std::vector<std::shared_ptr<Object>> children;
+	if (hasComponentsOfType<NodeComponent>())
+	{
+		for (auto& component : getTheUniqueComponentOfType<NodeComponent>()->getComponents())
+		{
+			children.push_back(component->getObject());
+		}
+	}
+	return children;
+}
+
 std::shared_ptr<NodeComponent> Object::getNodeComponent() 
 {
 	if (!hasComponentsOfType<NodeComponent>())
