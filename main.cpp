@@ -63,12 +63,10 @@ int main()
                 window.close();
             }
         }
-
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
         {
             sf::sleep(sf::seconds(0.1));
         }
-
         float dt = frameClock.restart().asSeconds();
         ObjectUpdateInfo updateInfo;
         updateInfo.dt = dt;

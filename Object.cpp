@@ -5,23 +5,37 @@
 
 void Object::addComponent(std::shared_ptr<Component> component)
 {
-	m_components.push_back(component);
+	m_childComponents.push_back(component);
 }
 
 bool Object::eraseComponent(std::shared_ptr<Component> component)
 {
 	bool found = false;
-	for (size_t i = 0; i < m_components.size(); i++)
+	for (size_t i = 0; i < m_childComponents.size(); i++)
 	{
-		if (m_components[i] == component)
+		if (m_childComponents[i] == component)
 		{
 			found = true;
-			swap(m_components[i], m_components.back());
-			m_components.pop_back();
+			swap(m_childComponents[i], m_childComponents.back());
+			m_childComponents.pop_back();
 			i--;
 		}
 	}
 	return found;
+}
+
+std::shared_ptr<Object> Object::getParent() const
+{
+	if (!hasComponentsOfType<NodeComponent>())
+	{
+		return 0;
+	}
+	std::shared_ptr<NodeComponent> parent = getTheUniqueComponentOfType<NodeComponent>()->getParentComponent();
+	if (!parent)
+	{
+		return 0;
+	}
+	return parent->getObject();
 }
 
 void Object::updateVirtual(ObjectUpdateInfo updateInfo)
@@ -30,7 +44,7 @@ void Object::updateVirtual(ObjectUpdateInfo updateInfo)
 
 void Object::clearComponents()
 {
-	m_components.clear();
+	m_childComponents.clear();
 }
 
 std::vector<std::shared_ptr<Object>> Object::getChildren() const

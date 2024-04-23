@@ -13,7 +13,7 @@ class NodeComponent;
 class Object : public std::enable_shared_from_this<Object>
 { 
 private:
-	std::vector<std::shared_ptr<Component>> m_components;
+	std::vector<std::shared_ptr<Component>> m_childComponents;
 protected:
 	void addComponent(std::shared_ptr<Component> component);
 	bool eraseComponent(std::shared_ptr<Component> component);
@@ -23,16 +23,31 @@ public:
 	virtual void create() = 0;
 	virtual sf::Vector2f getLocalPosition() const = 0; 
 	virtual sf::Vector2f getLocalSize() const = 0;
+	std::pair<sf::Vector2f, sf::Vector2f> getGlobalPositionAndSize() const
+	{
+		std::shared_ptr<Object> parent = getParent();
+		if (!parent)
+		{
+			return { getLocalPosition(), getLocalSize() };
+		}
+		auto [parentPosition, parentSize] = parent->getGlobalPositionAndSize();
+		sf::Vector2f localPosition = getLocalPosition();
+		sf::Vector2f localSize = getLocalSize();
+		sf::Vector2f size = { parentSize.x * localSize.x, parentSize.y * localSize.y };
+		sf::Vector2f position = parentPosition + sf::Vector2f(parentSize.x * localPosition.x, parentSize.y * localPosition.y);
+		return { position, size };
+	}
 	friend class Component;
 	std::shared_ptr<NodeComponent> getNodeComponent();
 	std::vector<std::shared_ptr<Object>> getChildren() const;
+	std::shared_ptr<Object> getParent() const;
 	void addChild(std::shared_ptr<Object> object);
 	bool eraseChild(std::shared_ptr<Object> object);
 	void clearChildren();
 	template<std::derived_from<Component> DerivedType> std::shared_ptr<DerivedType> getTheUniqueComponentOfType() const
 	{
 		std::shared_ptr<DerivedType> componentOfType;
-		for (const auto& component : m_components)
+		for (const auto& component : m_childComponents)
 		{
 			if (std::shared_ptr<DerivedType> castedComponent = std::dynamic_pointer_cast<DerivedType> (component))
 			{
@@ -46,9 +61,9 @@ public:
 	template<std::derived_from<Component> DerivedType> std::vector<std::shared_ptr<DerivedType>> getComponentsOfType() const
 	{
 		std::vector<std::shared_ptr<DerivedType>> componentsOfType;
-		for (size_t i = 0; i < m_components.size(); i++)
+		for (size_t i = 0; i < m_childComponents.size(); i++)
 		{
-			if (std::shared_ptr<DerivedType> castedComponent = std::dynamic_pointer_cast<DerivedType> (m_components[i]))
+			if (std::shared_ptr<DerivedType> castedComponent = std::dynamic_pointer_cast<DerivedType> (m_childComponents[i]))
 			{
 				componentsOfType.push_back(castedComponent);
 			}
@@ -57,9 +72,9 @@ public:
 	}
 	template<std::derived_from<Component> DerivedType> void getComponentsOfTypeFromSubtreeRef(std::vector<std::shared_ptr<DerivedType>>& componentsOfType) const
 	{
-		for (size_t i = 0; i < m_components.size(); i++)
+		for (size_t i = 0; i < m_childComponents.size(); i++)
 		{
-			if (std::shared_ptr<DerivedType> castedComponent = std::dynamic_pointer_cast<DerivedType> (m_components[i]))
+			if (std::shared_ptr<DerivedType> castedComponent = std::dynamic_pointer_cast<DerivedType> (m_childComponents[i]))
 			{
 				componentsOfType.push_back(castedComponent);
 			}
@@ -77,9 +92,9 @@ public:
 	}
 	template<std::derived_from<Component> DerivedType> bool hasComponentsOfType() const
 	{
-		for (size_t i = 0; i < m_components.size(); i++)
+		for (size_t i = 0; i < m_childComponents.size(); i++)
 		{
-			if (std::shared_ptr<DerivedType> castedComponent = std::dynamic_pointer_cast<DerivedType> (m_components[i]))
+			if (std::shared_ptr<DerivedType> castedComponent = std::dynamic_pointer_cast<DerivedType> (m_childComponents[i]))
 			{
 				return true;
 			}

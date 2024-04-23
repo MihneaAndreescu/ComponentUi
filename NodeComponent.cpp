@@ -3,19 +3,22 @@
 
 void NodeComponent::addComponent(std::shared_ptr<NodeComponent> component)
 {
-	m_components.push_back(component);
+	assert(!component->m_parentComponent);
+	component->m_parentComponent = std::dynamic_pointer_cast<NodeComponent>(getSharedThis());
+	m_childComponents.push_back(component);
 }
 
 bool NodeComponent::eraseComponent(std::shared_ptr<NodeComponent> component)
 {
 	bool found = false;
-	for (size_t i = 0; i < m_components.size(); i++)
+	for (size_t i = 0; i < m_childComponents.size(); i++)
 	{
-		if (m_components[i] == component)
+		if (m_childComponents[i] == component)
 		{
 			found = true;
-			swap(m_components[i], m_components.back());
-			m_components.pop_back();
+			m_childComponents[i]->m_parentComponent = 0;
+			swap(m_childComponents[i], m_childComponents.back());
+			m_childComponents.pop_back();
 			i--;
 		}
 	}
@@ -24,7 +27,7 @@ bool NodeComponent::eraseComponent(std::shared_ptr<NodeComponent> component)
 
 void NodeComponent::clearComponents()
 {
-	m_components.clear();
+	m_childComponents.clear();
 }
 
 std::shared_ptr<Object> NodeComponent::getObject() const
@@ -37,8 +40,8 @@ NodeComponent::NodeComponent(std::shared_ptr<Object> object) :
 {
 
 }
-	
-std::vector<std::shared_ptr<NodeComponent>> NodeComponent::getComponents() const 
+
+std::vector<std::shared_ptr<NodeComponent>> NodeComponent::getComponents() const
 {
-	return m_components;
+	return m_childComponents;
 }
