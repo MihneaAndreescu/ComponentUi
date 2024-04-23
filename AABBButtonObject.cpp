@@ -5,10 +5,13 @@
 
 AABBButtonObject::AABBButtonObject()
 {
-	auto shape = std::make_shared<AABBShapeComponent>(std::make_shared<Object>(*this));
-	addComponent(shape);
-	std::shared_ptr<AABBButtonObjectGraphicsComponent> graphicsComponent = std::make_shared<AABBButtonObjectGraphicsComponent>(std::make_shared<AABBButtonObject>(*this));
-	addComponent(graphicsComponent);
+
+}
+
+void AABBButtonObject::create()
+{
+	addComponent(std::make_shared<AABBShapeComponent>(getSharedThis()));
+	addComponent(std::make_shared<AABBButtonObjectGraphicsComponent>(std::dynamic_pointer_cast<AABBButtonObject>(getSharedThis())));
 }
 
 void AABBButtonObject::onIdle()
@@ -44,20 +47,26 @@ void AABBButtonObject::setCenter(sf::Vector2f newCenter)
 	shapeComponent->setCenter(newCenter);
 }
 
-const sf::Vector2f& AABBButtonObject::getSize() const
+const sf::Vector2f AABBButtonObject::getSize() const
 {
 	const auto shapeComponent = getTheUniqueComponentOfType<AABBShapeComponent>();
 	return shapeComponent->getSize();
 }
 
-const sf::Vector2f& AABBButtonObject::getCenter() const
+const sf::Vector2f AABBButtonObject::getCenter() const
 {
 	const auto shapeComponent = getTheUniqueComponentOfType<AABBShapeComponent>();
 	return shapeComponent->getCenter();
 }
 
+#include <iostream>
+
 void AABBButtonObject::updateVirtual(ObjectUpdateInfo info) 
 {
+	const auto shapeComponent = getTheUniqueComponentOfType<AABBShapeComponent>();
+	const auto graphicsComponent = getTheUniqueComponentOfType<AABBButtonObjectGraphicsComponent>();
+	std::cout << shapeComponent->getCenter().x << " " << graphicsComponent->getCenter().x << "\n";
+
 	ButtonObject::updateVirtual(info);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 	{

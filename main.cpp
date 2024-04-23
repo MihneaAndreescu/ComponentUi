@@ -11,7 +11,6 @@
 #include "GraphicsComponent.h"
 #include "AABBPanelObject.h"
 
-
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(900, 900), "SFML works!");
@@ -26,7 +25,9 @@ int main()
 
     {
         std::shared_ptr<AABBPanelObject> panel = std::make_shared<AABBPanelObject>();
+        panel->create();
         std::shared_ptr<AABBButtonObject> button = std::make_shared<AABBButtonObject>();
+        button->create();
         button->setTexture(std::make_shared<sf::Texture>(mountainTexture));
         button->setCenter(sf::Vector2f(0.5, 0.5));
         button->setSize(sf::Vector2f(0.2, 0.2));
@@ -49,6 +50,7 @@ int main()
         }
         objects.push_back(std::shared_ptr<Object>(panel));
     }
+
 
     sf::Clock frameClock;
 

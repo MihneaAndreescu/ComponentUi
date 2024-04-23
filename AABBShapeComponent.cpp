@@ -1,11 +1,11 @@
 #include "AABBShapeComponent.h"
 
-const sf::Vector2f& AABBShapeComponent::getSize() const
+const sf::Vector2f AABBShapeComponent::getSize() const
 {
 	return m_size;
 }
 
-const sf::Vector2f& AABBShapeComponent::getCenter() const
+const sf::Vector2f AABBShapeComponent::getCenter() const
 {
 	return m_center;
 }

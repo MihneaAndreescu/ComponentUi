@@ -16,4 +16,10 @@ public:
 	virtual void onIdle();
 	virtual void onHover();
 	virtual void onActive();
+	sf::Vector2f getLocalPosition() const override { return sf::Vector2f(0, 0); }
+	sf::Vector2f getLocalSize() const override { return sf::Vector2f(0, 0); }
+	void create() override
+	{
+
+	}
 };

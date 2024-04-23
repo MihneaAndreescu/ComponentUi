@@ -4,12 +4,16 @@
 #include "AABBShapeComponent.h"
 #include "AABBObjectGraphicsComponent.h"
 
+#include <iostream>
+
 AABBPanelObject::AABBPanelObject()
 {
-	auto shape = std::make_shared<AABBShapeComponent>(std::make_shared<Object>(*this));
-	addComponent(shape);
-	std::shared_ptr<AABBObjectGraphicsComponent> graphicsComponent = std::make_shared<AABBObjectGraphicsComponent>(std::make_shared<Object>(*this));
-	addComponent(graphicsComponent);
+}
+
+void AABBPanelObject::create() 
+{
+	addComponent(std::make_shared<AABBShapeComponent>(getSharedThis()));
+	addComponent(std::make_shared<AABBObjectGraphicsComponent>(getSharedThis()));
 }
 
 void AABBPanelObject::updateVirtual(ObjectUpdateInfo info)
@@ -29,13 +33,13 @@ void AABBPanelObject::setCenter(sf::Vector2f newCenter)
 	shapeComponent->setCenter(newCenter);
 }
 
-const sf::Vector2f& AABBPanelObject::getSize() const
+const sf::Vector2f AABBPanelObject::getSize() const
 {
 	const auto shapeComponent = getTheUniqueComponentOfType<AABBShapeComponent>();
 	return shapeComponent->getSize();
 }
 
-const sf::Vector2f& AABBPanelObject::getCenter() const
+const sf::Vector2f AABBPanelObject::getCenter() const
 {
 	const auto shapeComponent = getTheUniqueComponentOfType<AABBShapeComponent>();
 	return shapeComponent->getCenter();

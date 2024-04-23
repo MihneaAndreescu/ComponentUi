@@ -1,4 +1,5 @@
 #pragma once
+#include <SFML/Graphics.hpp>
 #include <vector>
 #include <memory>
 #include <concepts>
@@ -10,7 +11,7 @@ class Component;
 class NodeComponent;
 
 class Object : public std::enable_shared_from_this<Object>
-{
+{ 
 private:
 	std::vector<std::shared_ptr<Component>> m_components;
 protected:
@@ -19,6 +20,9 @@ protected:
 	void clearComponents();
 	std::shared_ptr<Object> getSharedThis();
 public:
+	virtual void create() = 0;
+	virtual sf::Vector2f getLocalPosition() const = 0; 
+	virtual sf::Vector2f getLocalSize() const = 0;
 	friend class Component;
 	std::shared_ptr<NodeComponent> getNodeComponent();
 	std::vector<std::shared_ptr<Object>> getChildren() const;
