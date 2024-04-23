@@ -1,11 +1,11 @@
 #include "AABBShapeComponent.h"
 
-const sf::Vector2f AABBShapeComponent::getSize() const
+const sf::Vector2f AABBShapeComponent::getSizeVirtual() const
 {
 	return m_size;
 }
 
-const sf::Vector2f AABBShapeComponent::getCenter() const
+const sf::Vector2f AABBShapeComponent::getCenterVirtual() const
 {
 	return m_center;
 }
@@ -27,7 +27,9 @@ AABBShapeComponent::AABBShapeComponent(std::shared_ptr<Object> object) :
 
 bool AABBShapeComponent::contains(const sf::Vector2f& point) const
 {
-	return abs(point.x - m_center.x) <= m_size.x * 0.5f && abs(point.y - m_center.y) <= m_size.y * 0.5f;
+	auto [position, size] = m_object->getGlobalPositionAndSize();
+	sf::Vector2f center = position + size * 0.5f;
+	return abs(point.x - center.x) <= size.x * 0.5f && abs(point.y - center.y) <= size.y * 0.5f;
 }
 
 std::shared_ptr<Object> AABBShapeComponent::getObject() const

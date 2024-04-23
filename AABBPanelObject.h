@@ -13,15 +13,15 @@ public:
 
 	void setSize(sf::Vector2f newSize);
 	void setCenter(sf::Vector2f newCenter);
-	const sf::Vector2f getSize() const;
-	const sf::Vector2f getCenter() const;
+	const sf::Vector2f getSizeVirtual() const;
+	const sf::Vector2f getCenterVirtual() const;
 	sf::Vector2f getLocalPosition() const override
 	{
-		return getSize();
+		return getCenterVirtual() - getSizeVirtual() * 0.5f;
 	}
 	virtual sf::Vector2f getLocalSize() const override
 	{
-		return getSize();
+		return getSizeVirtual();
 	}
 	void create() override;
 };

@@ -10,8 +10,8 @@ private:
 	std::shared_ptr<Object> m_object;
 
 public:
-	sf::Vector2f getSize() const;
-	sf::Vector2f getCenter() const;
+	sf::Vector2f getSizeVirtual() const;
+	sf::Vector2f getCenterVirtual() const;
 	std::shared_ptr<Object> getObject() const override;
 
 	AABBObjectGraphicsComponent(std::shared_ptr<Object> object);

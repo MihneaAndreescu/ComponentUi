@@ -21,26 +21,30 @@ void AABBObjectGraphicsComponent::draw(sf::RenderTarget& renderTarget, sf::Rende
 	renderTarget.draw(m_vertexArray, renderStates);
 }
 
-sf::Vector2f AABBObjectGraphicsComponent::getSize() const
+sf::Vector2f AABBObjectGraphicsComponent::getSizeVirtual() const
 {
 	const auto shapeComponent = m_object->getTheUniqueComponentOfType<AABBShapeComponent>();
-	return shapeComponent->getSize();
+	return shapeComponent->getSizeVirtual();
 }
 
-sf::Vector2f AABBObjectGraphicsComponent::getCenter() const
+sf::Vector2f AABBObjectGraphicsComponent::getCenterVirtual() const
 {
 	const auto shapeComponent = m_object->getTheUniqueComponentOfType<AABBShapeComponent>();
-	return shapeComponent->getCenter();
+	return shapeComponent->getCenterVirtual();
 }
 
 void AABBObjectGraphicsComponent::beforeRender()
 {
 	m_vertexArray.setPrimitiveType(sf::Quads);
 	m_vertexArray.clear();
-	m_vertexArray.append(sf::Vertex(sf::Vector2f(getCenter().x - getSize().x * 0.5f, getCenter().y - getSize().y * 0.5)));
-	m_vertexArray.append(sf::Vertex(sf::Vector2f(getCenter().x - getSize().x * 0.5f, getCenter().y + getSize().y * 0.5)));
-	m_vertexArray.append(sf::Vertex(sf::Vector2f(getCenter().x + getSize().x * 0.5f, getCenter().y + getSize().y * 0.5)));
-	m_vertexArray.append(sf::Vertex(sf::Vector2f(getCenter().x + getSize().x * 0.5f, getCenter().y - getSize().y * 0.5)));
+
+	auto [position, size] = m_object->getGlobalPositionAndSize();
+	
+	m_vertexArray.append(sf::Vertex(sf::Vector2f(position.x, position.y)));
+	m_vertexArray.append(sf::Vertex(sf::Vector2f(position.x, position.y + size.y)));
+	m_vertexArray.append(sf::Vertex(sf::Vector2f(position.x + size.x, position.y + size.y)));
+	m_vertexArray.append(sf::Vertex(sf::Vector2f(position.x + size.x, position.y)));
+	assert((int)m_vertexArray.getVertexCount() == 4);
 	if (m_texture)
 	{
 		m_vertexArray[0].texCoords = sf::Vector2f(0, 0);

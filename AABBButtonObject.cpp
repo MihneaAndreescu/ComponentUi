@@ -47,14 +47,14 @@ void AABBButtonObject::setCenter(sf::Vector2f newCenter)
 	shapeComponent->setCenter(newCenter);
 }
 
-const sf::Vector2f AABBButtonObject::getSize() const
+const sf::Vector2f AABBButtonObject::getSizeVirtual() const
 {
-	return getTheUniqueComponentOfType<AABBShapeComponent>()->getSize();
+	return getTheUniqueComponentOfType<AABBShapeComponent>()->getSizeVirtual();
 }
 
-const sf::Vector2f AABBButtonObject::getCenter() const
+const sf::Vector2f AABBButtonObject::getCenterVirtual() const
 {
-	return getTheUniqueComponentOfType<AABBShapeComponent>()->getCenter();
+	return getTheUniqueComponentOfType<AABBShapeComponent>()->getCenterVirtual();
 }
 
 
@@ -62,7 +62,7 @@ void AABBButtonObject::updateVirtual(ObjectUpdateInfo info)
 {
 	ButtonObject::updateVirtual(info);
 	const auto shapeComponent = getTheUniqueComponentOfType<AABBShapeComponent>();
-	sf::Vector2f center = shapeComponent->getCenter();
+	sf::Vector2f center = shapeComponent->getCenterVirtual();
 	center += (sf::Vector2f(0, -1) * 1.0f * info.dt) * ((sf::Keyboard::isKeyPressed(sf::Keyboard::W)) * 1.0f);
 	center += sf::Vector2f(0, 1) * 1.0f * info.dt * ((sf::Keyboard::isKeyPressed(sf::Keyboard::S)) * 1.0f);
 	center += sf::Vector2f(-1, 0) * 1.0f * info.dt * ((sf::Keyboard::isKeyPressed(sf::Keyboard::D)) * 1.0f);
