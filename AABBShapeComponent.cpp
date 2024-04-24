@@ -27,6 +27,7 @@ const sf::Vector2f AABBShapeComponent::getCenter() const
 void AABBShapeComponent::setSize(sf::Vector2f newSize)
 {
 	m_size = newSize;
+	m_size = intervalize(m_size, sf::Vector2f(0, 0), 2.0f * sf::Vector2f(std::min(m_center.x, 1 - m_center.x), std::min(m_center.y, 1 - m_center.y)));
 }
 
 void AABBShapeComponent::setCenter(sf::Vector2f newCenter)

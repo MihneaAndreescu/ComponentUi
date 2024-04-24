@@ -19,6 +19,26 @@ void AABBPanelObject::create()
 void AABBPanelObject::updateVirtual(ObjectUpdateInfo info)
 {
 	Object::updateVirtual(info);
+	const auto shapeComponent = getTheUniqueComponentOfType<AABBShapeComponent>();
+	sf::Vector2f center = shapeComponent->getCenter();
+	center += (sf::Vector2f(0, -1) * 1.0f * info.dt) * ((sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) * 1.0f);
+	center += sf::Vector2f(0, 1) * 1.0f * info.dt * ((sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) * 1.0f);
+	center += sf::Vector2f(-1, 0) * 1.0f * info.dt * ((sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) * 1.0f);
+	center += sf::Vector2f(+1, 0) * 1.0f * info.dt * ((sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) * 1.0f);
+	shapeComponent->setCenter(center);
+	sf::Vector2f size = shapeComponent->getSize();
+	float scale = 1;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))
+	{
+		scale *= pow(2.0f, info.dt);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4))
+	{
+		scale *= pow(1.0f / 2.0f, info.dt);
+	}
+	size.x *= scale;
+	size.y *= scale;
+	shapeComponent->setSize(size);
 }
 
 void AABBPanelObject::setSize(sf::Vector2f newSize)
