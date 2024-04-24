@@ -21,16 +21,16 @@ void AABBObjectGraphicsComponent::draw(sf::RenderTarget& renderTarget, sf::Rende
 	renderTarget.draw(m_vertexArray, renderStates);
 }
 
-sf::Vector2f AABBObjectGraphicsComponent::getSizeVirtual() const
+sf::Vector2f AABBObjectGraphicsComponent::getSize() const
 {
 	const auto shapeComponent = m_object->getTheUniqueComponentOfType<AABBShapeComponent>();
-	return shapeComponent->getSizeVirtual();
+	return shapeComponent->getSize();
 }
 
-sf::Vector2f AABBObjectGraphicsComponent::getCenterVirtual() const
+sf::Vector2f AABBObjectGraphicsComponent::getCenter() const
 {
 	const auto shapeComponent = m_object->getTheUniqueComponentOfType<AABBShapeComponent>();
-	return shapeComponent->getCenterVirtual();
+	return shapeComponent->getCenter();
 }
 
 void AABBObjectGraphicsComponent::beforeRender()

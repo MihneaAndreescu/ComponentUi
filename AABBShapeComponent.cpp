@@ -1,11 +1,25 @@
 #include "AABBShapeComponent.h"
 
-const sf::Vector2f AABBShapeComponent::getSizeVirtual() const
+sf::Vector2f AABBShapeComponent::intervalize(sf::Vector2f p, sf::Vector2f low, sf::Vector2f high) const
+{
+	p.x = std::max(p.x, low.x);
+	p.y = std::max(p.y, low.y);
+	p.x = std::min(p.x, high.x);
+	p.y = std::min(p.y, high.y);
+	return p;
+}
+
+const sf::Vector2f AABBShapeComponent::getSize() const
 {
 	return m_size;
 }
 
-const sf::Vector2f AABBShapeComponent::getCenterVirtual() const
+const sf::Vector2f AABBShapeComponent::getPosition() const
+{
+	return m_center - m_size * 0.5f;
+}
+
+const sf::Vector2f AABBShapeComponent::getCenter() const
 {
 	return m_center;
 }
@@ -18,6 +32,7 @@ void AABBShapeComponent::setSize(sf::Vector2f newSize)
 void AABBShapeComponent::setCenter(sf::Vector2f newCenter)
 {
 	m_center = newCenter;
+	m_center = intervalize(m_center, m_size * 0.5f, sf::Vector2f(1, 1) - m_size * 0.5f);
 }
 
 AABBShapeComponent::AABBShapeComponent(std::shared_ptr<Object> object) :

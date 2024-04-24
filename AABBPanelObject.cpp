@@ -33,14 +33,12 @@ void AABBPanelObject::setCenter(sf::Vector2f newCenter)
 	shapeComponent->setCenter(newCenter);
 }
 
-const sf::Vector2f AABBPanelObject::getSizeVirtual() const
+sf::Vector2f AABBPanelObject::getLocalPosition() const
 {
-	const auto shapeComponent = getTheUniqueComponentOfType<AABBShapeComponent>();
-	return shapeComponent->getSizeVirtual();
+	return getTheUniqueComponentOfType<AABBShapeComponent>()->getPosition();
 }
 
-const sf::Vector2f AABBPanelObject::getCenterVirtual() const
+sf::Vector2f AABBPanelObject::getLocalSize() const
 {
-	const auto shapeComponent = getTheUniqueComponentOfType<AABBShapeComponent>();
-	return shapeComponent->getCenterVirtual();
+	return getTheUniqueComponentOfType<AABBShapeComponent>()->getSize();
 }

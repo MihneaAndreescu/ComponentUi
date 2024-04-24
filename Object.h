@@ -19,14 +19,6 @@ protected:
 	bool eraseComponent(std::shared_ptr<Component> component);
 	void clearComponents();
 	std::shared_ptr<Object> getSharedThis();
-	sf::Vector2f intervalize(sf::Vector2f p, sf::Vector2f low, sf::Vector2f high) const
-	{
-		p.x = std::max(p.x, low.x);
-		p.y = std::max(p.y, low.y);
-		p.x = std::min(p.x, high.x);
-		p.y = std::min(p.y, high.y);
-		return p;
-	}
 public:
 	virtual void create() = 0;
 	virtual sf::Vector2f getLocalPosition() const = 0; 
@@ -41,8 +33,8 @@ public:
 		auto [parentPosition, parentSize] = parent->getGlobalPositionAndSize();
 		sf::Vector2f localPosition = getLocalPosition();
 		sf::Vector2f localSize = getLocalSize();
-		localPosition = intervalize(localPosition, sf::Vector2f(0, 0), sf::Vector2f(1, 1) - localSize);
-		localSize = intervalize(localSize, sf::Vector2f(0, 0), sf::Vector2f(1, 1) - localSize);
+		//localPosition = intervalize(localPosition, sf::Vector2f(0, 0), sf::Vector2f(1, 1) - localSize);
+		//localSize = intervalize(localSize, sf::Vector2f(0, 0), sf::Vector2f(1, 1) - localSize);
 		sf::Vector2f size = { parentSize.x * localSize.x, parentSize.y * localSize.y };
 		sf::Vector2f position = parentPosition + sf::Vector2f(parentSize.x * localPosition.x, parentSize.y * localPosition.y);
 		return { position, size };
