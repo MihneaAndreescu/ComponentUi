@@ -93,6 +93,9 @@ int main()
     }
     return 0;
 }
+// cache globalTransform
+// setPosition, setOrigin
+// RectTransform -> {sf::Transform (matrice)}
 // sa fac json de la 0
 // rename update
 // node component -> copil doar node component
