@@ -13,8 +13,7 @@ public:
 	void onActive() override;
 	void updateVirtual(ObjectUpdateInfo info) override;
 	void setSize(sf::Vector2f newSize);
-	void setCenter(sf::Vector2f newCenter);
-	sf::Vector2f getLocalPosition() const override;
-	sf::Vector2f getLocalSize() const override;
+	void setPosition(sf::Vector2f newPosition);
+	void setOrigin(sf::Vector2f newOrigin);
 	void create() override;
 };

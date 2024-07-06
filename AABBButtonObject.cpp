@@ -41,45 +41,41 @@ void AABBButtonObject::setSize(sf::Vector2f newSize)
 	shapeComponent->setSize(newSize);
 }
 
-void AABBButtonObject::setCenter(sf::Vector2f newCenter)
+void AABBButtonObject::setPosition(sf::Vector2f newPosition)
 {
 	const auto shapeComponent = getTheUniqueComponentOfType<AABBShapeComponent>();
-	shapeComponent->setCenter(newCenter);
+	shapeComponent->setPosition(newPosition);
 }
 
-#include <iostream>
+void AABBButtonObject::setOrigin(sf::Vector2f newOrigin)
+{
+	const auto shapeComponent = getTheUniqueComponentOfType<AABBShapeComponent>();
+	shapeComponent->setOrigin(newOrigin);
+}
 
 void AABBButtonObject::updateVirtual(ObjectUpdateInfo info)
 {
 	ButtonObject::updateVirtual(info);
 	const auto shapeComponent = getTheUniqueComponentOfType<AABBShapeComponent>();
-	sf::Vector2f center = shapeComponent->getCenter();
-	center += (sf::Vector2f(0, -1) * 1.0f * info.dt) * ((sf::Keyboard::isKeyPressed(sf::Keyboard::W)) * 1.0f);
-	center += sf::Vector2f(0, 1) * 1.0f * info.dt * ((sf::Keyboard::isKeyPressed(sf::Keyboard::S)) * 1.0f);
-	center += sf::Vector2f(-1, 0) * 1.0f * info.dt * ((sf::Keyboard::isKeyPressed(sf::Keyboard::D)) * 1.0f);
-	center += sf::Vector2f(+1, 0) * 1.0f * info.dt * ((sf::Keyboard::isKeyPressed(sf::Keyboard::A)) * 1.0f);
-	shapeComponent->setCenter(center);
+	sf::Vector2f position = shapeComponent->getPosition();
+	position += (sf::Vector2f(0, -1) * 1.0f * info.dt) * ((sf::Keyboard::isKeyPressed(sf::Keyboard::W)) * 1.0f);
+	position += sf::Vector2f(0, 1) * 1.0f * info.dt * ((sf::Keyboard::isKeyPressed(sf::Keyboard::S)) * 1.0f);
+	position += sf::Vector2f(-1, 0) * 1.0f * info.dt * ((sf::Keyboard::isKeyPressed(sf::Keyboard::D)) * 1.0f);
+	position += sf::Vector2f(+1, 0) * 1.0f * info.dt * ((sf::Keyboard::isKeyPressed(sf::Keyboard::A)) * 1.0f);
+
+	shapeComponent->setPosition(position);
+
 	sf::Vector2f size = shapeComponent->getSize();
-	float scale = 1;
+	float m_scale = 1;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
 	{
-		scale *= pow(2.0f, info.dt);
+		m_scale *= pow(2.0f, info.dt);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
 	{
-		scale *= pow(1.0f / 2.0f, info.dt);
+		m_scale *= pow(1.0f / 2.0f, info.dt);
 	}
-	size.x *= scale;
-	size.y *= scale;
+	size.x *= m_scale;
+	size.y *= m_scale;
 	shapeComponent->setSize(size);
-}
-
-sf::Vector2f AABBButtonObject::getLocalPosition() const
-{
-	return getTheUniqueComponentOfType<AABBShapeComponent>()->getPosition();
-}
-
-sf::Vector2f AABBButtonObject::getLocalSize() const
-{
-	return getTheUniqueComponentOfType<AABBShapeComponent>()->getSize();
 }

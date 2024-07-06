@@ -55,6 +55,9 @@
     <Filter Include="Source Files\Component\NodeComponent">
       <UniqueIdentifier>{9a5bf25c-d3e2-49ed-8109-8b5d02a15f42}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\MyTransform">
+      <UniqueIdentifier>{1eb93691-db08-4774-b4d9-f2f64a28318e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -68,9 +71,6 @@
     </ClCompile>
     <ClCompile Include="AABBObjectGraphicsComponent.cpp">
       <Filter>Source Files\Component\AABBObjectGraphicsComponent</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjectUpdateInfo.cpp">
-      <Filter>Source Files\ObjectUpdateInfo</Filter>
     </ClCompile>
     <ClCompile Include="AABBButtonObject.cpp">
       <Filter>Source Files\Object\AABBButtonObject</Filter>
@@ -89,6 +89,9 @@
     </ClCompile>
     <ClCompile Include="AABBButtonObjectGraphicsComponent.cpp">
       <Filter>Source Files\Component\AABBButtonObjectGraphicsComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="MyTransform.cpp">
+      <Filter>Source Files\MyTransform</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -127,6 +130,9 @@
     </ClInclude>
     <ClInclude Include="NodeComponent.h">
       <Filter>Source Files\Component\NodeComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="MyTransform.h">
+      <Filter>Source Files\MyTransform</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

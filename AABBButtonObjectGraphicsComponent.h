@@ -4,8 +4,7 @@
 
 class AABBButtonObject;
 
-class AABBButtonObjectGraphicsComponent : public AABBObjectGraphicsComponent
-{
+class AABBButtonObjectGraphicsComponent : public AABBObjectGraphicsComponent {
 private:
 	sf::Shader m_shader;
 	std::shared_ptr<AABBButtonObject> m_object;

@@ -2,8 +2,7 @@
 #include "AABBButtonObject.h"
 #include "AABBShapeComponent.h"
 
-sf::Glsl::Vec4 getVec4(sf::Color color)
-{
+sf::Glsl::Vec4 getVec4(sf::Color color){
 	float red = color.r / 255.f;
 	float green = color.g / 255.f;
 	float blue = color.b / 255.f;
@@ -11,39 +10,32 @@ sf::Glsl::Vec4 getVec4(sf::Color color)
 	return sf::Glsl::Vec4(red, green, blue, alpha);
 }
 
-std::shared_ptr<Object> AABBButtonObjectGraphicsComponent::getObject() const
-{
+std::shared_ptr<Object> AABBButtonObjectGraphicsComponent::getObject() const{
 	return m_object;
 }
 
 AABBButtonObjectGraphicsComponent::AABBButtonObjectGraphicsComponent(std::shared_ptr<AABBButtonObject> object) :
 	m_object(object),
-	AABBObjectGraphicsComponent(object)
-{
-	if (!m_shader.loadFromFile("shader.frag", sf::Shader::Fragment))
-	{
+	AABBObjectGraphicsComponent(object){
+	if (!m_shader.loadFromFile("shader.frag", sf::Shader::Fragment)){
 		exit(0);
 	}
 	m_shader.setUniform("texture", sf::Shader::CurrentTexture);
 }
 
-void AABBButtonObjectGraphicsComponent::onIdle()
-{
+void AABBButtonObjectGraphicsComponent::onIdle(){
 	m_shader.setUniform("inputColor", getVec4(sf::Color::Green));
 }
 
-void AABBButtonObjectGraphicsComponent::onHover()
-{
+void AABBButtonObjectGraphicsComponent::onHover(){
 	m_shader.setUniform("inputColor", getVec4(sf::Color::Yellow));
 }
 
-void AABBButtonObjectGraphicsComponent::onActive()
-{
+void AABBButtonObjectGraphicsComponent::onActive(){
 	m_shader.setUniform("inputColor", getVec4(sf::Color::Red));
 }
 
-void AABBButtonObjectGraphicsComponent::draw(sf::RenderTarget& renderTarget, sf::RenderStates renderStates) const
-{
+void AABBButtonObjectGraphicsComponent::draw(sf::RenderTarget& renderTarget, sf::RenderStates renderStates) const{
 	renderStates.shader = &m_shader;
 	AABBObjectGraphicsComponent::draw(renderTarget, renderStates);
 }

@@ -5,39 +5,43 @@
 #include <concepts>
 #include <cassert>
 #include "Component.h"
+#include "MyTransform.h"
 
 class ObjectUpdateInfo;
 class Component;
 class NodeComponent;
 
-class Object : public std::enable_shared_from_this<Object>
-{ 
+class Object : public std::enable_shared_from_this<Object> {
 private:
 	std::vector<std::shared_ptr<Component>> m_childComponents;
 protected:
+	MyTransform m_transform;
 	void addComponent(std::shared_ptr<Component> component);
 	bool eraseComponent(std::shared_ptr<Component> component);
 	void clearComponents();
 	std::shared_ptr<Object> getSharedThis();
 public:
+	std::shared_ptr<sf::Vector2f> restpos;
+	std::shared_ptr<sf::Vector2f> restdim;
+	sf::FloatRect getBoundingBox() {
+		return m_transform.getBoundingBox();
+	}
 	virtual void create() = 0;
-	virtual sf::Vector2f getLocalPosition() const = 0; 
-	virtual sf::Vector2f getLocalSize() const = 0;
-	std::pair<sf::Vector2f, sf::Vector2f> getGlobalPositionAndSize() const
-	{
-		std::shared_ptr<Object> parent = getParent();
-		if (!parent)
-		{
-			return { getLocalPosition(), getLocalSize() };
+
+	void setPosition(sf::Vector2f newPosition);
+	void setOrigin(sf::Vector2f newOrigin);
+	void setScale(sf::Vector2f newScale);
+	sf::Vector2f getPosition() const;
+	sf::Vector2f getScale() const;
+	sf::Vector2f getOrigin() const;
+
+	MyTransform getGlobalTransform() const {
+		std::shared_ptr<Object> parent = getParent(); 
+		if (!parent) {
+			return m_transform; 
 		}
-		auto [parentPosition, parentSize] = parent->getGlobalPositionAndSize();
-		sf::Vector2f localPosition = getLocalPosition();
-		sf::Vector2f localSize = getLocalSize();
-		//localPosition = intervalize(localPosition, sf::Vector2f(0, 0), sf::Vector2f(1, 1) - localSize);
-		//localSize = intervalize(localSize, sf::Vector2f(0, 0), sf::Vector2f(1, 1) - localSize);
-		sf::Vector2f size = { parentSize.x * localSize.x, parentSize.y * localSize.y };
-		sf::Vector2f position = parentPosition + sf::Vector2f(parentSize.x * localPosition.x, parentSize.y * localPosition.y);
-		return { position, size };
+		MyTransform parentTransform = parent->getGlobalTransform(); 
+		return m_transform.combine(parentTransform);
 	}
 	friend class Component;
 	std::shared_ptr<NodeComponent> getNodeComponent();
@@ -46,13 +50,10 @@ public:
 	void addChild(std::shared_ptr<Object> object);
 	bool eraseChild(std::shared_ptr<Object> object);
 	void clearChildren();
-	template<std::derived_from<Component> DerivedType> std::shared_ptr<DerivedType> getTheUniqueComponentOfType() const
-	{
+	template<std::derived_from<Component> DerivedType> std::shared_ptr<DerivedType> getTheUniqueComponentOfType() const{
 		std::shared_ptr<DerivedType> componentOfType;
-		for (const auto& component : m_childComponents)
-		{
-			if (std::shared_ptr<DerivedType> castedComponent = std::dynamic_pointer_cast<DerivedType> (component))
-			{
+		for (const auto& component : m_childComponents){
+			if (std::shared_ptr<DerivedType> castedComponent = std::dynamic_pointer_cast<DerivedType> (component)){
 				assert(!componentOfType);
 				componentOfType = castedComponent;
 			}
@@ -60,44 +61,33 @@ public:
 		assert(componentOfType);
 		return componentOfType;
 	}
-	template<std::derived_from<Component> DerivedType> std::vector<std::shared_ptr<DerivedType>> getComponentsOfType() const
-	{
+	template<std::derived_from<Component> DerivedType> std::vector<std::shared_ptr<DerivedType>> getComponentsOfType() const{
 		std::vector<std::shared_ptr<DerivedType>> componentsOfType;
-		for (size_t i = 0; i < m_childComponents.size(); i++)
-		{
-			if (std::shared_ptr<DerivedType> castedComponent = std::dynamic_pointer_cast<DerivedType> (m_childComponents[i]))
-			{
+		for (size_t i = 0; i < m_childComponents.size(); i++){
+			if (std::shared_ptr<DerivedType> castedComponent = std::dynamic_pointer_cast<DerivedType> (m_childComponents[i])){
 				componentsOfType.push_back(castedComponent);
 			}
 		}
 		return componentsOfType;
 	}
-	template<std::derived_from<Component> DerivedType> void getComponentsOfTypeFromSubtreeRef(std::vector<std::shared_ptr<DerivedType>>& componentsOfType) const
-	{
-		for (size_t i = 0; i < m_childComponents.size(); i++)
-		{
-			if (std::shared_ptr<DerivedType> castedComponent = std::dynamic_pointer_cast<DerivedType> (m_childComponents[i]))
-			{
+	template<std::derived_from<Component> DerivedType> void getComponentsOfTypeFromSubtreeRef(std::vector<std::shared_ptr<DerivedType>>& componentsOfType) const{
+		for (size_t i = 0; i < m_childComponents.size(); i++){
+			if (std::shared_ptr<DerivedType> castedComponent = std::dynamic_pointer_cast<DerivedType> (m_childComponents[i])){
 				componentsOfType.push_back(castedComponent);
 			}
 		}
-		for (auto& child : getChildren())
-		{
+		for (auto& child : getChildren()){
 			child->getComponentsOfTypeFromSubtreeRef(componentsOfType);
 		}
 	}
-	template<std::derived_from<Component> DerivedType> std::vector<std::shared_ptr<DerivedType>> getComponentsOfTypeFromSubtree() const
-	{
+	template<std::derived_from<Component> DerivedType> std::vector<std::shared_ptr<DerivedType>> getComponentsOfTypeFromSubtree() const{
 		std::vector<std::shared_ptr<DerivedType>> componentsOfType;
 		getComponentsOfTypeFromSubtreeRef(componentsOfType);
 		return componentsOfType;
 	}
-	template<std::derived_from<Component> DerivedType> bool hasComponentsOfType() const
-	{
-		for (size_t i = 0; i < m_childComponents.size(); i++)
-		{
-			if (std::shared_ptr<DerivedType> castedComponent = std::dynamic_pointer_cast<DerivedType> (m_childComponents[i]))
-			{
+	template<std::derived_from<Component> DerivedType> bool hasComponentsOfType() const{
+		for (size_t i = 0; i < m_childComponents.size(); i++){
+			if (std::shared_ptr<DerivedType> castedComponent = std::dynamic_pointer_cast<DerivedType> (m_childComponents[i])){
 				return true;
 			}
 		}
@@ -105,6 +95,7 @@ public:
 	}
 	virtual void updateVirtual(ObjectUpdateInfo updateInfo);
 	void update(ObjectUpdateInfo updateInfo);
+	static std::shared_ptr<Object> special;
+	static std::shared_ptr<Object> special2;
 };
-
 
